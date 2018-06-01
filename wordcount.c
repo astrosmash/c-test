@@ -1,23 +1,30 @@
 #include <stdio.h>
 
-int main() {
-  unsigned int c, i, nwhite, nother, ndigit[10];
-  nwhite = nother = 0;
-  for (i = 0; i < 10; ++i) // whatif i++ ?
-    ndigit[i] = 0;
+#define MAXNO 12
+#define MAXWL 24
+
+int main(void) {
+  unsigned int c, i, j, nchar, nword, word[MAXNO];
+  nchar = nword = 0;
+  for (i = 0; i < MAXNO; ++i) // faster than i++
+    word[i] = 0;
 
   while ((c = getchar()) != EOF) {
-    if (c >= '0' && c <= '9')
-      ++ndigit[c - '0'];
-    else if (c == ' ' || c == '\n' || c == '\t')
-      ++nwhite;
-    else
-      ++nother;
-
-    printf("digits = ");
-    for (i = 0; i < 10; ++i)
-      printf(" #%d: %d", i, ndigit[i]);
-
-    printf("\nwhitespace = %d, other = %d\n", nwhite, nother);
+    ++nchar;
+    if (c == ' ' || c == '\n' || c == '\t') {
+      word[nword] = nchar - 1;
+      ++nword;
+      nchar = 0;
+    }
   }
+  for (i = MAXWL; i >= 1; --i) {
+    for (j = 0; j <= nword; ++j) {
+      if (i <= word[j])
+        putchar('*');
+      else
+        putchar(' ');
+    }
+    putchar('\n');
+  }
+  return 0;
 }
