@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define MAXNO 12
+#define MAXNO 24
 #define MAXWL 24
 
 int main(void) {
@@ -14,6 +14,7 @@ int main(void) {
     if (c == ' ' || c == '\n' || c == '\t') {
       word[nword] = nchar - 1;
       ++nword;
+      printf("%d %d ", nchar, nword);
       nchar = 0;
     }
   }
